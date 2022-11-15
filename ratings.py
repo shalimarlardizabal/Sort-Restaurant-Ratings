@@ -5,32 +5,33 @@ def restaurant_rate(filename):
 
     file = open(filename)
     rating = {}
-    
-    # while True:
-
-    #     user_input = input("Would ")
-
-    new_restaurant = input("Restaurant Name: ")
-    new_score = int(input("Restaurant Score: "))
-    
-    # while new_score not in range(5):
-    #     new_score = input("Please enter 1-5 for score: ")
-    
-    while new_score < 1 or new_score > 5:
-        new_score = int(input("Please enter"))
         
-
-    rating[new_restaurant] = new_score
+    while True:
+        
+        print("Please input S, A, or Q")
+        user_input = input("Would you like to See all the ratings, Add new restaurant, or Quit? >")
+        user_input = user_input.upper().strip() 
+        
+        if user_input == "Q":
+            break
+        
+        elif user_input == "S":
+            for line in file:
+                restaurant, rate = line.rstrip().split(":")[:2]
+                rating[restaurant]= rate
     
-    for line in file:
-        restaurant, rate = line.rstrip().split(":")[:2]
-        rating[restaurant]= rate
-    
-    sorted_rating = sorted(rating)
+            sorted_rating = sorted(rating)
 
-    for restaurant in sorted_rating: 
-        print(f' {restaurant} is rated {rating[restaurant]}')
+            for restaurant in sorted_rating: 
+                print(f' {restaurant} is rated {rating[restaurant]}')
 
-
-
+        elif user_input == "A":
+            new_restaurant = input("Restaurant Name: ")
+            new_score = int(input("Restaurant Score: "))
+                     
+            if new_score not in range(5):
+                new_score = int(input("Please enter 1-5 for score: "))
+            
+            rating[new_restaurant] = new_score
+                  
 restaurant_rate('scores.txt')
